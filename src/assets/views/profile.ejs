@@ -1,0 +1,46 @@
+<%- include('partials/header', { title }) %>
+
+<body class="d-flex flex-column min-vh-100">
+    <%- include('partials/navigation', { title, session }) %>
+
+    <div class="container mt-4">
+        <h2>User Profile - <%= user.username %></h2>
+
+        <section class="profile-section">
+            <h3>Joined Topics</h3>
+            <ul class="list-group mb-4">
+                <% joinedTopics.forEach(topic => { %>
+                    <li class="list-group-item">
+                        <%= topic.name %>
+                    </li>
+                <% }); %>
+            </ul>
+        </section>
+
+        <section class="profile-section">
+            <h3>Posts Made</h3>
+            <ul class="list-group mb-4">
+                <% userPosts.forEach(post => { %>
+                    <li class="list-group-item">
+                        <%= post.title %>
+                    </li>
+                <% }); %>
+            </ul>
+        </section>
+
+        <section class="profile-section">
+            <h3>Comments Made</h3>
+            <ul class="list-group mb-4">
+                <% userComments.forEach(comment => { %>
+                    <li class="list-group-item">
+                        <%= comment.content %>
+                    </li>
+                <% }); %>
+            </ul>
+        </section>
+    </div>
+
+    <%- include('partials/footer', { title }) %>
+</body>
+
+</html>
