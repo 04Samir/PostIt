@@ -1,7 +1,7 @@
 const app = require('./server/app');
 const db = require('./database');
 
-const PORT = 1234;
+const PORT = 8008;
 
 
 const initDatabase = async () => {
