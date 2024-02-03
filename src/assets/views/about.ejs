@@ -1,0 +1,27 @@
+<%- include('partials/header', { title , name }) %>
+
+<body class="d-flex flex-column min-vh-100">
+    <%- include('partials/navigation', { name , session }) %>
+
+    <div class="container mt-4">
+        <h2>About Us</h2>
+        <p>
+            Welcome to <%= name %>, the place where enthusiasts gather to share their thoughts, experiences,
+            and expertise on a variety of topics. Whether you're into art, business, cars, cats, or any other
+            passion, you'll find a community here that shares your interests.
+        </p>
+        <p>
+            Our platform is built on the idea of connecting people with common interests, fostering discussions,
+            and building a sense of community. Feel free to explore the various topics and engage with fellow
+            members through posts and comments.
+        </p>
+        <p>
+            We believe in the power of knowledge sharing and the joy of connecting with like-minded individuals.
+            Join us on this journey, and let's make <%= name %> a vibrant and welcoming space for everyone.
+        </p>
+    </div>
+
+    <%- include('partials/footer', { name }) %>
+</body>
+
+</html>

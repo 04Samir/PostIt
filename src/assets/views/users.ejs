@@ -1,0 +1,22 @@
+<%- include('partials/header', { title , name }) %>
+
+<body class="d-flex flex-column min-vh-100">
+        <%- include('partials/navigation', { name , session }) %>
+
+    <div class="container mt-4">
+        <h2 class="mb-4">All Users</h2>
+        <ul class="list-group mb-4">
+            <% users.forEach(user => { %>
+                <li class="list-group-item">
+                    <a href="/users/<%= user.username %>" class="text-decoration-none">
+                        <%= user.username %>
+                    </a>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+
+    <%- include('partials/footer', { name }) %>
+</body>
+
+</html>

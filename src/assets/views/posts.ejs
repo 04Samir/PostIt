@@ -1,0 +1,37 @@
+<%- include('partials/header', { title , name }) %>
+
+<body class="d-flex flex-column min-vh-100">
+        <%- include('partials/navigation', { name , session }) %>
+
+    <div class="container mt-4">
+        <h2>Latest Posts</h2>
+        <div class="row">
+            <% posts.forEach(post => { %>
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>
+                                    <a href="/topics/<%= post.topic_name %>/posts/<%= post.id %>">
+                                        <%= post.title %>
+                                    </a>
+                                </strong></h5>
+                            <p class="card-text">
+                                <%= post.content %>
+                            </p>
+                            <p class="card-text"><small>
+                                    Author:
+                                    <a href="/users/<%= post.user_id %>" class="text-decoration-none">
+                                        <%= post.username %>
+                                    </a>
+                                </small></p>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <%- include('partials/footer', { name }) %>
+</body>
+
+</html>

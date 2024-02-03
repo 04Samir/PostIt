@@ -1,0 +1,44 @@
+.card.reply {
+    border-left: 2px solid #007bff;
+    padding-left: 1rem;
+}
+
+.card, .list-group-item {
+    transition: background-color 0.3s ease-in-out;
+}
+
+.card:hover, .list-group-item:hover {
+    background-color: #e9e9e9;
+}
+
+.search-container {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+.search-box {
+    display: none;
+    position: fixed;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 80vh;
+    overflow-y: auto;
+    width: 40%;
+    min-width: 300px;
+    max-width: 600px;
+}
+
+#searchFormBox {
+    margin-bottom: 20px;
+}

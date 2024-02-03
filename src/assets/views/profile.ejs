@@ -1,0 +1,53 @@
+<%- include('partials/header', { title , name }) %>
+
+<body class="d-flex flex-column min-vh-100">
+        <%- include('partials/navigation', { name , session }) %>
+
+    <div class="container mt-4">
+        <h2>User Profile - <%= user.username %></h2>
+        <br>
+
+        <section class="profile-section">
+            <h3>Joined Topics:</h3>
+            <ul class="list-group mb-4">
+                <% joinedTopics.forEach(topic => { %>
+                    <a href="/topics/<%= topic.name %>" class="text-decoration-none">
+                    <li class="list-group-item">
+                            <%= topic.name %>
+                    </li>
+                    </a>
+                <% }); %>
+            </ul>
+        </section>
+
+        <section class="profile-section">
+            <h3>Posts Made:</h3>
+            <ul class="list-group mb-4">
+                <% userPosts.forEach(post => { %>
+                    <a href="/posts/<%= post.id %>" class="text-decoration-none">
+                    <li class="list-group-item">
+                        <%= post.title %>
+                    </li>
+                    </a>
+                <% }); %>
+            </ul>
+        </section>
+
+        <section class="profile-section">
+            <h3>Comments Made:</h3>
+            <ul class="list-group mb-4">
+                <% userComments.forEach(comment => { %>
+                    <a href="/posts/<%= comment.postId %>" class="text-decoration-none">
+                    <li class="list-group-item">
+                        <%= comment.content %>
+                    </li>
+                    </a>
+                <% }); %>
+            </ul>
+        </section>
+    </div>
+
+    <%- include('partials/footer', { name }) %>
+</body>
+
+</html>

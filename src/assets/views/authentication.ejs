@@ -1,0 +1,75 @@
+<%- include('partials/header', { title , name }) %>
+
+    <body class="d-flex flex-column min-vh-100">
+            <%- include('partials/navigation', { name , session }) %>
+
+            <div class="container mt-4">
+                <h2>
+                    <%= type %>
+                </h2>
+
+                <% if (typeof message !=='undefined' && message !==null ) { %>
+                    <div class="alert alert-<%= message.type %>" role="alert">
+                        <%= message.text %>
+                    </div>
+
+                    <% if (typeof message.redirect !=='undefined' ) { %>
+                        <script>
+                            setTimeout(function () {
+                                window.location.href = '<%= message.redirect %>';
+                            }, 3000);
+                        </script>
+                        <% } %>
+
+                            <% } %>
+
+                                <% if (typeof route !=='undefined' && route !==null ) { %>
+                                    <form action="<%= route %>" method="POST">
+                                        <div class="mb-3">
+                                            <label for="username" class="form-label">Username</label>
+                                            <input type="text" class="form-control" id="username" name="username"
+                                                required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="password" class="form-label">Password</label>
+                                            <input type="password" class="form-control" id="password" name="password"
+                                                required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">
+                                            <%= type %>
+                                        </button>
+                                        <% } else { %>
+                                            <form action="/" method="POST">
+                                                <div class="mb-3">
+                                                    <label for="username" class="form-label">Username</label>
+                                                    <input type="text" class="form-control" id="username"
+                                                        name="username" disabled>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="password" class="form-label">Password</label>
+                                                    <input type="password" class="form-control" id="password"
+                                                        name="password" disabled>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <%= type %>
+                                                </button>
+                                                <% } %>
+                                                    <% if (type==='Login' ) { %>
+                                                        <p class="mt-2">No Account? <a
+                                                                href="<%= route.replace('login', 'register') %>">Register
+                                                                Here!</a>
+                                                        </p>
+                                                        <% } else { %>
+                                                            <p class="mt-2">Already have an Account? <a
+                                                                    href="<%= route.replace('register', 'login') %>">Login
+                                                                    Here!</a></p>
+                                                            <% } %>
+                                            </form>
+
+                                    </form>
+            </div>
+
+            <%- include('partials/footer', { name }) %>
+    </body>
+
+    </html>

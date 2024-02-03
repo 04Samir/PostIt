@@ -1,0 +1,76 @@
+<%- include('partials/header', { title , name }) %>
+
+    <body class="d-flex flex-column min-vh-100">
+            <%- include('partials/navigation', { name , session }) %>
+
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h2>
+                            <%= topic.name %> Posts
+                        </h2>
+                        <% posts.forEach(post=> { %>
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title"><strong>
+                                            <a href="/topics/<%= topic.name %>/posts/<%= post.id %>">
+                                                <%= post.title %>
+                                            </a>
+                                        </strong></h5>
+                                    <p class="card-text">
+                                        <%= post.content %>
+                                    </p>
+                                    <p class="card-text"><small>
+                                            Author:
+                                            <a href="/users/<%= post.user_id %>" class="text-decoration-none">
+                                                <%= post.user_username %>
+                                            </a>
+                                        </small></p>
+                                </div>
+                            </div>
+                            <% }); %>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="bg-light p-3 h-50">
+                            <h2>Users</h2>
+                            <ul class="list-unstyled">
+                                <% users.forEach(user=> { %>
+                                    <li>
+                                        <a href="/users/<%= user.id %>" class="text-decoration-none">
+                                            <%= user.username %>
+                                        </a>
+                                    </li>
+                                    <% }); %>
+                            </ul>
+
+                        </div>
+                        <div class="mt-3">
+                        <% if (session) { %>
+                            <% if (typeof joined !== 'undefined' && joined) { %>
+                                <form action="/topics/<%= topic.name %>/leave" method="POST">
+                                    <button type="submit" class="btn btn-danger w-100">Leave this Topic</button>
+                                </form>
+                                <% } else { %>
+                                    <form action="/topics/<%= topic.name %>/join" method="POST">
+                                        <button type="submit" class="btn btn-success w-100">Join this Topic</button>
+                                    </form>
+                                    <% } %>
+                                        <% } else { %>
+                                            <form action="/topics/<%= topic.name %>/join" method="POST">
+                                                <button type="submit" class="btn btn-success w-100">Join this
+                                                    Topic</button>
+                                            </form>
+                                            <% } %>
+                        </div>
+                        <div class="mt-3">
+                            <a href="/topics/<%= topic.name %>/posts/new" class="btn btn-primary w-100">New Post</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <%- include('partials/footer', { name }) %>
+    </body>
+
+    </html>

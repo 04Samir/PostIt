@@ -1,0 +1,198 @@
+const bcrypt = require('bcrypt');
+const express = require('express');
+const router = express.Router();
+
+const db = require('../../database');
+
+
+const hashPassword = async (password) => {
+    const saltRounds = 10; 
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    return hashedPassword;
+};
+
+
+router.get('/register', (request, response) => {
+    let route = '/register';
+    let message = null;
+    const redirect = request.query.redirect || null;
+    if (redirect) {
+        route += `?redirect=${redirect}`;
+        message = {
+            type: 'info',
+            text: 'You Must be Logged-In to View that Page!'
+        };
+    };
+
+    if (request.session.user) {
+        return response.redirect('/');
+    };
+
+    response.render('authentication', {
+        title: 'Register',
+        name: global.name,
+        session: null,
+        type: 'Register',
+        route: route,
+        message: message
+    });
+});
+
+router.post('/register', async (request, response) => {
+    const redirect = request.query.redirect || null;
+
+    if (request.session.user) {
+        return response.redirect('/');
+    };
+
+    const { username, password } = request.body;
+    const hashedPassword = await hashPassword(password);
+
+    try {
+        const [check] = await db.execute('SELECT * FROM users WHERE username = ?', [username]);
+        if (check && check.length > 0) {
+            return response.render(
+                'authentication', {
+                    title: 'Register',
+                    name: global.name,
+                    session: null,
+                    type: 'Register',
+                    route: '/register',
+                    message: {
+                        type: 'warning',
+                        text: 'Username Already Exists!'
+                    }
+                }
+            );
+        }
+
+        const [data] = await db.execute('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword]);
+        const user = data[0];
+
+        request.session.user = {
+            id: user.id,
+            username: user.username
+        };
+        response.render('authentication', {
+            title: 'Register',
+            name: global.name,
+            session: request.session.user,
+            type: 'Register',
+            route: redirect || '/',
+            message: {
+                type: 'success',
+                text: 'Account Created Successfully! Redirecting to Home Page . . .',
+                redirect: '/'
+            }
+        });
+
+    } catch (error) {
+        console.error('Error at Route -> [POST] /register');
+        console.error(error);
+        response.sendStatus(500);
+    }
+});
+
+
+router.get('/login', (request, response) => {
+    let route = '/login';
+    let message = null;
+    const redirect = request.query.redirect || null;
+    if (redirect) {
+        route += `?redirect=${redirect}`;
+        message = {
+            type: 'info',
+            text: 'You Must be Logged-In to View that Page!'
+        };
+    };
+
+    if (request.session.user) {
+        return response.redirect('/');
+    };
+
+    response.render('authentication', {
+        title: 'Login',
+        name: global.name,
+        session: null,
+        type: 'Login',
+        route: route,
+        message: message
+    });
+});
+
+router.post('/login', async (request, response) => {
+    const redirect = request.query.redirect || null;
+
+    if (request.session.user) {
+        return response.redirect('/');
+    };
+
+    const { username, password } = request.body;
+
+    try {
+        const [data] = await db.execute('SELECT * FROM users WHERE username = ?', [username]);
+
+        if (!data || data.length === 0) {
+            return response.render('authentication', {
+                title: 'Login',
+                name: global.name,
+                session: null,
+                type: 'Login',
+                route: '/login',
+                message: {
+                    type: 'danger',
+                    text: 'Invalid Username'
+                }
+            });
+        }
+        const user = data[0];
+        
+        const match = await bcrypt.compare(password, user.password);
+        if (match) {
+            request.session.user = {
+                id: user.id,
+                username: user.username
+            };
+            return response.render('authentication', {
+                title: 'Login',
+                name: global.name,
+                session: request.session.user,
+                type: 'Login',
+                route: redirect || '/',
+                message: {
+                    type: 'success',
+                    text: 'Login Successful! Redirecting . . .',
+                    redirect: redirect || '/'
+                }
+            });
+        } else {
+            return response.render('authentication', {
+                title: 'Login',
+                name: global.name,
+                session: null,
+                type: 'Login',
+                route: '/login',
+                message: {
+                    type: 'danger',
+                    text: 'Invalid Password'
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Error at Route -> [POST] /login');
+        console.error(error);
+        response.sendStatus(500);
+    }
+});
+
+
+router.get('/logout', (request, response) => {
+    if (request.session.user) {
+        request.session.destroy();
+    };
+
+    response.redirect('/');
+});
+
+
+module.exports = { handler: router };

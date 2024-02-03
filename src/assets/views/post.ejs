@@ -1,0 +1,104 @@
+<%- include('partials/header', { title , name }) %>
+
+<body class="d-flex flex-column min-vh-100">
+        <%- include('partials/navigation', { name , session }) %>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><strong><%= post.title %></strong></h5>
+                        <p class="card-text"><%= post.content %></p>
+                        <p class="card-text"><small>
+                                Author:
+                                <a href="/users/<%= post.user_id %>" class="text-decoration-none"><%= post.user_username %></a>
+                            </small></p>
+                        <div class="d-flex gap-2">
+                            <% if (session && post.user_id === session.id) { %>
+                                <form class="d-inline"
+                                    action="/topics/<%= topic.name %>/posts/<%= post.id %>/delete" method="POST">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="fas fa-trash fa-xs"></i>
+                                        <span class="small">Delete Post</span>
+                                    </button>
+                                </form>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Comments</h3>
+
+                <div class="comments-list">
+                    <% function isCommentOwner(comment) { return session && comment.user_id === session.id; } %>
+                    <% function renderComments(comments, parent_id = null) { %>
+                        <% comments.filter(comment => comment.parent_id === parent_id).forEach(comment => { %>
+                            <div class="card <%= comment.parent_id ? 'reply mt-4' : 'mt-4 mb-4' %>">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mb-1 comment-time">
+                                            <%= comment.user_username %> - Posted
+                                            <span class="post-time" data-created-at="<%= comment.created_at %>">
+                                                <%= comment.created_at %>
+                                            </span>
+                                        </p>
+                                        <div class="d-flex gap-2">
+                                            <% if (isCommentOwner(comment)) { %>
+                                                <form class="d-inline"
+                                                    action="/topics/<%= topic.name %>/posts/<%= post.id %>/comments/delete"
+                                                    method="POST">
+                                                    <input type="hidden" name="commentId" value="<%= comment.id %>">
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                        <i class="fas fa-trash fa-xs"></i>
+                                                        <span class="small">Delete</span>
+                                                    </button>
+                                                </form>
+                                            <% } %>
+                                            <% if (!comment.parent_id) { %>
+                                                <a href="/topics/<%= topic.name %>/posts/<%= post.id %>/comments/<%= comment.id %>/reply"
+                                                    class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-reply fa-xs"></i>
+                                                    <span class="small">Reply</span>
+                                                </a>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                    <p class="small mb-0">
+                                        <%= comment.content %>
+                                    </p>
+                                    <% renderComments(comments, comment.id) %>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } %>
+                    <% renderComments(comments) %>
+
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Add a Comment</h5>
+                        <form action="/topics/<%= topic.name %>/posts/<%= post.id %>/comments" method="POST">
+                            <div class="mb-3">
+                                <label for="comment" class="form-label">Comment</label>
+                                <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit Comment</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <a href="/topics/<%= topic.name %>" class="btn btn-secondary w-100">Back to <%= topic.name %> Page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer', { name }) %>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<%- include('partials/header', { title , name }) %>
+
+    <body class="d-flex flex-column min-vh-100">
+            <%- include('partials/navigation', { name , session }) %>
+
+            <div class="container mt-4">
+                <h2>New Post - <%= topic.name %>
+                </h2>
+
+                <% if (typeof message !=='undefined' && message !==null ) { %>
+                    <div class="alert alert-<%= message.type %>" role="alert">
+                        <%= message.text %>
+                    </div>
+
+                    <% if (typeof message.redirect !=='undefined' ) { %>
+                        <script>
+                            setTimeout(function () {
+                                window.location.href = '<%= message.redirect %>';
+                            }, 3000);
+                        </script>
+                        <% } %>
+                            <% } %>
+
+                            <form action="/topics/<%= topic.name %>/posts/new" method="POST">
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Title</label>
+                                    <input type="text" class="form-control" id="title" name="title" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="content" class="form-label">Content</label>
+                                    <textarea class="form-control" id="content" name="content" rows="4"
+                                        required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Create Post</button>
+                            </form>
+            </div>
+
+            <%- include('partials/footer', { name }) %>
+    </body>
+
+    </html>

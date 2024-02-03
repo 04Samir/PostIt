@@ -1,0 +1,32 @@
+<%- include('partials/header', { title , name }) %>
+
+<body class="d-flex flex-column min-vh-100">
+        <%- include('partials/navigation', { name , session }) %>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>All Topics</h2>
+                <div class="row">
+                    <% topics.forEach(topic => { %>
+                        <div class="col-md-3 mb-3">
+                            <a href="/topics/<%= topic.name %>" class="text-decoration-none">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <%= topic.name %>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer', { name }) %>
+</body>
+
+</html>
