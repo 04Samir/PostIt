@@ -13,7 +13,7 @@ const hashPassword = async (password) => {
 
 
 router.get('/register', (request, response) => {
-    let route = '/register';
+    let route = request.baseUrl + '/register';
     let message = null;
     const redirect = request.query.redirect || null;
     if (redirect) {
@@ -57,7 +57,7 @@ router.post('/register', async (request, response) => {
                     name: global.name,
                     session: null,
                     type: 'Register',
-                    route: '/register',
+                    route:  request.baseUrl + '/register',
                     message: {
                         type: 'warning',
                         text: 'Username Already Exists!'
@@ -82,7 +82,7 @@ router.post('/register', async (request, response) => {
             message: {
                 type: 'success',
                 text: 'Account Created Successfully! Redirecting to Home Page . . .',
-                redirect: '/'
+                redirect: request.baseUrl
             }
         });
 
@@ -95,7 +95,7 @@ router.post('/register', async (request, response) => {
 
 
 router.get('/login', (request, response) => {
-    let route = '/login';
+    let route = request.baseUrl + '/login';
     let message = null;
     const redirect = request.query.redirect || null;
     if (redirect) {
@@ -138,7 +138,7 @@ router.post('/login', async (request, response) => {
                 name: global.name,
                 session: null,
                 type: 'Login',
-                route: '/login',
+                route: request.baseUrl + '/login',
                 message: {
                     type: 'danger',
                     text: 'Invalid Username'
@@ -158,11 +158,11 @@ router.post('/login', async (request, response) => {
                 name: global.name,
                 session: request.session.user,
                 type: 'Login',
-                route: redirect || request.baseUrl,
+                route: request.baseUrl + (redirect || ''),
                 message: {
                     type: 'success',
                     text: 'Login Successful! Redirecting . . .',
-                    redirect: redirect || request.baseUrl
+                    redirect: request.baseUrl + (redirect || '')
                 }
             });
         } else {
@@ -171,7 +171,7 @@ router.post('/login', async (request, response) => {
                 name: global.name,
                 session: null,
                 type: 'Login',
-                route: '/login',
+                route: request.baseUrl + '/login',
                 message: {
                     type: 'danger',
                     text: 'Invalid Password'

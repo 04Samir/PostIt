@@ -28,7 +28,7 @@
                                         </small></p>
                                 </div>
                             </div>
-                            <% }); %>
+                        <% }); %>
                     </div>
 
                     <div class="col-md-3">
@@ -41,7 +41,7 @@
                                             <%= user.username %>
                                         </a>
                                     </li>
-                                    <% }); %>
+                                <% }); %>
                             </ul>
 
                         </div>
@@ -51,17 +51,17 @@
                                 <form action="<%= baseUrl %>/topics/<%= topic.name %>/leave" method="POST">
                                     <button type="submit" class="btn btn-danger w-100">Leave this Topic</button>
                                 </form>
-                                <% } else { %>
-                                    <form action="<%= baseUrl %>/topics/<%= topic.name %>/join" method="POST">
-                                        <button type="submit" class="btn btn-success w-100">Join this Topic</button>
-                                    </form>
-                                    <% } %>
-                                        <% } else { %>
-                                            <form action="<%= baseUrl %>/topics/<%= topic.name %>/join" method="POST">
-                                                <button type="submit" class="btn btn-success w-100">Join this
-                                                    Topic</button>
-                                            </form>
-                                            <% } %>
+                            <% } else { %>
+                                <form action="<%= baseUrl %>/topics/<%= topic.name %>/join" method="POST">
+                                    <button type="submit" class="btn btn-success w-100">Join this Topic</button>
+                                </form>
+                                <% } %>
+                        <% } else { %>
+                            <form action="<%= baseUrl %>/topics/<%= topic.name %>/join" method="POST">
+                                <button type="submit" class="btn btn-success w-100">Join this
+                                    Topic</button>
+                            </form>
+                        <% } %>
                         </div>
                         <div class="mt-3">
                             <a href="<%= baseUrl %>/topics/<%= topic.name %>/posts/new" class="btn btn-primary w-100">New Post</a>

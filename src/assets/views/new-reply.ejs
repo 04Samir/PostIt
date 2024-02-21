@@ -12,25 +12,21 @@
                         <%= message.text %>
                     </div>
 
-                    <% if (typeof message.redirect !=='undefined' ) { %>
+                    <% if (typeof message.redirect !=='undefined') { %>
                         <script>
                             setTimeout(function () {
                                 window.location.href = '<%= message.redirect %>';
                             }, 3000);
                         </script>
                         <% } %>
-                            <% } %>
-
-                                <form
-                                    action="<%= baseUrl %>/topics/<%= topic.name %>/posts/<%= post.id %>/comments/<%= comment.id %>/reply"
-                                    method="POST">
-                                    <div class="mb-3">
-                                        <label for="content" class="form-label">Your Reply</label>
-                                        <textarea class="form-control" id="content" name="content" rows="4"
-                                            required></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Submit Reply</button>
-                                </form>
+                    <% } %>
+                    <form action="<%= baseUrl %>/topics/<%= topic.name %>/posts/<%= post.id %>/comments/<%= comment.id %>/reply" method="POST">
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Your Reply</label>
+                            <textarea class="form-control" id="content" name="content" rows="4" required></textarea>
+                        </div>
+                            <button type="submit" class="btn btn-primary">Submit Reply</button>
+                    </form>
             </div>
 
             <%- include('partials/footer', { name }) %>

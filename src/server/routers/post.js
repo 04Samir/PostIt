@@ -17,7 +17,7 @@ router.get('/topics/:topicArg/posts/new', checkArgs, async (request, response) =
 
         if (!request.session.user) {
             response.status(401)
-            response.redirect(`/login?redirect=/topics/${topic[0].name}/posts`);
+            response.redirect(`${request.baseUrl}/login?redirect=/topics/${topic[0].name}/posts`);
             return;
         };
 
@@ -27,7 +27,7 @@ router.get('/topics/:topicArg/posts/new', checkArgs, async (request, response) =
             message = {
                 type: 'warning',
                 text: 'You are Not a Member of this Topic. Redirecting to Topic Page . . .',
-                redirect: `/topics/${topic[0].name}`
+                redirect: `${request.baseUrl}/topics/${topic[0].name}`
             };
         };
 
@@ -58,25 +58,25 @@ router.post('/topics/:topicArg/posts/new', checkArgs, async (request, response) 
 
         if (!request.session.user) {
             response.status(401)
-            response.redirect(`/login?redirect=/topics/${topic[0].name}/posts/new`);
+            response.redirect(`${request.baseUrl}/login?redirect=/topics/${topic[0].name}/posts/new`);
             return;
         };
 
         const [check] = await db.execute('SELECT * FROM user_topic WHERE user_id = ? AND topic_id = ?', [request.session.user.id, topic[0].id]);
         if (!check || check.length === 0) {
-            response.redirect(`/topics/${topic[0].name}/posts/new`);
+            response.redirect(`${request.baseUrl}/topics/${topic[0].name}/posts/new`);
             return;
         };
 
         const { title, content } = request.body;
         if (!title || !content) {
-            response.redirect(`/topics/${topic[0].name}/posts/new`);
+            response.redirect(`${request.baseUrl}/topics/${topic[0].name}/posts/new`);
             return;
         };
 
         const [post] = await db.execute('INSERT INTO posts (title, content, user_id, topic_id) VALUES (?, ?, ?, ?)', [title, content, request.session.user.id, topic[0].id]);
 
-        response.redirect(`/topics/${topic[0].name}/posts/${post.insertId}`);
+        response.redirect(`${request.baseUrl}/topics/${topic[0].name}/posts/${post.insertId}`);
     }
     catch (error) {
         console.error('Error at Route -> [POST] /topics/:topicArg/posts/new');
@@ -105,13 +105,13 @@ router.post('/topics/:topicArg/posts/:postId/delete', checkArgs, async (request,
 
         if (!request.session.user) {
             response.status(401)
-            response.redirect(`/login?redirect=/topics/${topic[0].name}/posts/${post[0].id}`);
+            response.redirect(`${request.baseUrl}/login?redirect=/topics/${topic[0].name}/posts/${post[0].id}`);
             return;
         };
 
         await db.execute('DELETE FROM posts WHERE id = ?', [post[0].id]);
 
-        response.redirect(`/topics/${topic[0].name}`);
+        response.redirect(`${request.baseUrl}/topics/${topic[0].name}`);
     }
     catch (error) {
         console.error('Error at Route -> [DELETE] /topics/:topicArg/posts/:postId/delete');

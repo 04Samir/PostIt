@@ -1,7 +1,7 @@
 <%- include('partials/header', { title , name }) %>
 
     <body class="d-flex flex-column min-vh-100">
-            <%- include('partials/navigation', { name , session }) %>
+        <%- include('partials/navigation', { name , session }) %>
 
             <div class="container mt-4 mb-4">
                 <h3>Search Results for "<%= query %>"</h3>
@@ -12,13 +12,14 @@
                         <div class="list-group">
                             <% if (topics.length> 0) { %>
                                 <% topics.forEach(topic=> { %>
-                                    <a href="<%= baseUrl %>/topics/<%= topic.id %>" class="list-group-item list-group-item-action">
+                                    <a href="<%= baseUrl %>/topics/<%= topic.id %>"
+                                        class="list-group-item list-group-item-action">
                                         <%= topic.name %>
                                     </a>
-                                    <% }); %>
-                                        <% } else { %>
-                                            <p>No Topics Found</p>
-                                            <% } %>
+                                <% }); %>
+                            <% } else { %>
+                                <p>No Topics Found</p>
+                            <% } %>
                         </div>
                     </div>
 
@@ -31,10 +32,10 @@
                                         class="list-group-item list-group-item-action">
                                         <%= post.title %>
                                     </a>
-                                    <% }); %>
-                                        <% } else { %>
-                                            <p>No Posts Found</p>
-                                            <% } %>
+                                <% }); %>
+                            <% } else { %>
+                                <p>No Posts Found</p>
+                            <% } %>
                         </div>
                     </div>
                 </div>

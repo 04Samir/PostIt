@@ -36,8 +36,8 @@ router.get('/search', async (request, response) => {
             json: () => {
                 response.type('json');
                 response.json({
-                    topics: topicsResults.map(topic => ({ label: topic.name, category: 'topics', url: `/topics/${topic.name}` })),
-                    posts: postsResults.map(post => ({ label: post.title, category: 'posts', url: `/topics/${post.name}/posts/${post.id}` }))
+                    topics: topicsResults.map(topic => ({ label: topic.name, category: 'topics', url: `${request.baseUrl}/topics/${topic.name}` })),
+                    posts: postsResults.map(post => ({ label: post.title, category: 'posts', url: `${request.baseUrl}/topics/${post.name}/posts/${post.id}` }))
                 });
             },
             default: () => {

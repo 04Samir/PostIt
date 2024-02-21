@@ -22,7 +22,7 @@ const checkArgs = async (request, response, next) => {
         };
 
         if (redirect) {
-            return response.redirect(`/topics/${topic[0].name}`);
+            return response.redirect(`${request.baseUrl}/topics/${topic[0].name}`);
         } else {
             next();
         };

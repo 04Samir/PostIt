@@ -24,25 +24,25 @@ router.post('/topics/:topicArg/posts/:postId/comments', checkArgs, async (reques
 
         if (!request.session.user) {
             response.status(401)
-            response.redirect(`/login?redirect=/topics/${topic[0].name}/posts/${post[0].id}`);
+            response.redirect(`${request.baseUrl}/login?redirect=/topics/${topic[0].name}/posts/${post[0].id}`);
             return;
         };
 
         const [check] = await db.execute('SELECT * FROM user_topic WHERE user_id = ? AND topic_id = ?', [request.session.user.id, topic[0].id]);
         if (!check || check.length === 0) {
-            response.redirect(`/topics/${topic[0].name}/posts/${post[0].id}`);
+            response.redirect(`${request.baseUrl}/topics/${topic[0].name}/posts/${post[0].id}`);
             return;
         };
 
         const { content } = request.body;
         if (!content) {
-            response.redirect(`/topics/${topic[0].name}/posts/${post[0].id}`);
+            response.redirect(`${request.baseUrl}/topics/${topic[0].name}/posts/${post[0].id}`);
             return;
         };
 
         await db.execute('INSERT INTO comments (content, user_id, post_id) VALUES (?, ?, ?)', [content, request.session.user.id, post[0].id]);
 
-        response.redirect(`/topics/${topic[0].name}/posts/${post[0].id}`);
+        response.redirect(`${request.baseUrl}/topics/${topic[0].name}/posts/${post[0].id}`);
     }
     catch (error) {
         console.error('Error at Route -> [POST] /topics/:topicArg/posts/:postId/comments/new');
@@ -77,7 +77,7 @@ router.get('/topics/:topicArg/posts/:postId/comments/:commentId/reply', checkArg
 
         if (!request.session.user) {
             response.status(401)
-            response.redirect(`/login?redirect=/topics/${topic[0].name}/posts/${post[0].id}`);
+            response.redirect(`${request.baseUrl}/login?redirect=/topics/${topic[0].name}/posts/${post[0].id}`);
             return;
         };
 
@@ -93,7 +93,7 @@ router.get('/topics/:topicArg/posts/:postId/comments/:commentId/reply', checkArg
                 message: {
                     type: 'warning',
                     text: 'You are Not a Member of this Topic. Redirecting to Topic Page . . .',
-                    redirect: `/topics/${topic[0].name}`
+                    redirect: `${request.baseUrl}/topics/${topic[0].name}`
                 }
             });
         };
@@ -134,25 +134,25 @@ router.post('/topics/:topicArg/posts/:postId/comments/:commentId/reply', checkAr
 
         if (!request.session.user) {
             response.status(401)
-            response.redirect(`/login?redirect=/topics/${topic[0].name}/posts/${post[0].id}`);
+            response.redirect(`${request.baseUrl}/login?redirect=/topics/${topic[0].name}/posts/${post[0].id}`);
             return;
         };
 
         const [check] = await db.execute('SELECT * FROM user_topic WHERE user_id = ? AND topic_id = ?', [request.session.user.id, topic[0].id]);
         if (!check || check.length === 0) {
-            response.redirect(`/topics/${topic[0].name}/posts/${post[0].id}`);
+            response.redirect(`${request.baseUrl}/topics/${topic[0].name}/posts/${post[0].id}`);
             return;
         };
 
         const { content } = request.body;
         if (!content) {
-            response.redirect(`/topics/${topic[0].name}/posts/${post[0].id}`);
+            response.redirect(`${request.baseUrl}/topics/${topic[0].name}/posts/${post[0].id}`);
             return;
         };
 
         await db.execute('INSERT INTO comments (content, user_id, post_id, parent_id) VALUES (?, ?, ?, ?)', [content, request.session.user.id, post[0].id, commentId]);
 
-        response.redirect(`/topics/${topic[0].name}/posts/${post[0].id}`);
+        response.redirect(`${request.baseUrl}/topics/${topic[0].name}/posts/${post[0].id}`);
     }
     catch (error) {
         console.error('Error at Route -> [POST] /topics/:topicArg/posts/:postId/comments/:commentId/reply');
@@ -181,25 +181,25 @@ router.post('/topics/:topicArg/posts/:postId/comments/delete', checkArgs, async 
 
         if (!request.session.user) {
             response.status(401)
-            response.redirect(`/login?redirect=/topics/${topic[0].name}/posts/${post[0].id}`);
+            response.redirect(`${request.baseUrl}/login?redirect=/topics/${topic[0].name}/posts/${post[0].id}`);
             return;
         };
 
         const { commentId } = request.body;
         if (!commentId) {
-            response.redirect(`/topics/${topic[0].name}/posts/${post[0].id}`);
+            response.redirect(`${request.baseUrl}/topics/${topic[0].name}/posts/${post[0].id}`);
             return;
         };
 
         const [comment] = await db.execute('SELECT * FROM comments WHERE id = ? AND user_id = ?', [commentId, request.session.user.id]);
         if (!comment || comment.length === 0) {
-            response.redirect(`/topics/${topic[0].name}/posts/${post[0].id}`);
+            response.redirect(`${request.baseUrl}/topics/${topic[0].name}/posts/${post[0].id}`);
             return;
         };
 
         await db.execute('DELETE FROM comments WHERE id = ? OR parent_id = ?', [comment[0].id, comment[0].id]);
         
-        response.redirect(`/topics/${topic[0].name}/posts/${post[0].id}`);
+        response.redirect(`${request.baseUrl}/topics/${topic[0].name}/posts/${post[0].id}`);
     }
     catch (error) {
         console.error('Error at Route -> [DELETE] /topics/:topicArg/posts/:postId/comments');

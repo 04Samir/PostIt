@@ -62,7 +62,7 @@ router.post('/topics/:topicArg/join', checkArgs, async (request, response) => {
 
         if (!request.session.user) {
             response.status(401)
-            response.redirect(`/login?redirect=/topics/${topic[0].name}`);
+            response.redirect(`${request.baseUrl}/login?redirect=/topics/${topic[0].name}`);
             return;
         };
 
@@ -74,7 +74,7 @@ router.post('/topics/:topicArg/join', checkArgs, async (request, response) => {
             await db.execute('INSERT INTO user_topic (user_id, topic_id) VALUES (?, ?)', [request.session.user.id, topic[0].id]);
         };
 
-        response.redirect(`/topics/${topic[0].name}`);
+        response.redirect(`${request.baseUrl}/topics/${topic[0].name}`);
 
     }
     catch (error) {
@@ -97,13 +97,13 @@ router.post('/topics/:topicArg/leave', checkArgs, async (request, response) => {
 
         if (!request.session.user) {
             response.status(401)
-            response.redirect(`/login?redirect=/topics/${topic[0].name}`);
+            response.redirect(`${request.baseUrl}/login?redirect=/topics/${topic[0].name}`);
             return;
         };
 
         await db.execute('DELETE FROM user_topic WHERE user_id = ? AND topic_id = ?', [request.session.user.id, topic[0].id]);
 
-        response.redirect(`/topics/${topic[0].name}`);
+        response.redirect(`${request.baseUrl}/topics/${topic[0].name}`);
 
     }
     catch (error) {
