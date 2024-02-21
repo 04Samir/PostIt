@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark position-relative">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <div class="d-flex">
-            <a class="navbar-brand ms-3" href="/">
+            <a class="navbar-brand ms-3" href="<%= baseUrl %>/">
                 <%= name %>
             </a>
-            <a class="btn btn-outline-light ms-2" href="/about">About</a>
+            <a class="btn btn-outline-light ms-2" href="<%= baseUrl %>/about">About</a>
         </div>
 
         <div class="mx-auto position-absolute top-50 start-50 translate-middle">
@@ -16,7 +16,7 @@
 
         <% if (session) { %>
             <div class="btn-group me-3">
-                <a class="btn btn-outline-light user-dropdown-btn" href="/user/<%= session.username %>">
+                <a class="btn btn-outline-light user-dropdown-btn" href="<%= baseUrl %>/users/<%= session.username %>">
                     Hi, <%= session.username %>
                 </a>
                 <button type="button" class="btn btn-outline-light dropdown-toggle dropdown-toggle-split"
@@ -24,11 +24,11 @@
                     <span class="visually-hidden">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    <li><a class="dropdown-item" href="<%= baseUrl %>/logout">Logout</a></li>
                 </ul>
             </div>
             <% } else { %>
-                <a class="btn btn-outline-light me-2" href="/login">Login/Register</a>
+                <a class="btn btn-outline-light me-2" href="<%= baseUrl %>/login">Login/Register</a>
                 <% } %>
     </div>
 </nav>

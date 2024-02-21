@@ -209,4 +209,4 @@ router.post('/topics/:topicArg/posts/:postId/comments/delete', checkArgs, async 
 });
 
 
-module.exports = { handler: router };
+module.exports = router;

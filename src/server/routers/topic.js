@@ -114,4 +114,4 @@ router.post('/topics/:topicArg/leave', checkArgs, async (request, response) => {
 });
 
 
-module.exports = { handler: router };
+module.exports = router;

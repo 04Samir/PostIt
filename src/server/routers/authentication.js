@@ -25,7 +25,7 @@ router.get('/register', (request, response) => {
     };
 
     if (request.session.user) {
-        return response.redirect('/');
+        return response.redirect(request.baseUrl);
     };
 
     response.render('authentication', {
@@ -42,7 +42,7 @@ router.post('/register', async (request, response) => {
     const redirect = request.query.redirect || null;
 
     if (request.session.user) {
-        return response.redirect('/');
+        return response.redirect(request.baseUrl);
     };
 
     const { username, password } = request.body;
@@ -78,7 +78,7 @@ router.post('/register', async (request, response) => {
             name: global.name,
             session: request.session.user,
             type: 'Register',
-            route: redirect || '/',
+            route: redirect || request.baseUrl,
             message: {
                 type: 'success',
                 text: 'Account Created Successfully! Redirecting to Home Page . . .',
@@ -107,7 +107,7 @@ router.get('/login', (request, response) => {
     };
 
     if (request.session.user) {
-        return response.redirect('/');
+        return response.redirect(request.baseUrl);
     };
 
     response.render('authentication', {
@@ -124,7 +124,7 @@ router.post('/login', async (request, response) => {
     const redirect = request.query.redirect || null;
 
     if (request.session.user) {
-        return response.redirect('/');
+        return response.redirect(request.baseUrl);
     };
 
     const { username, password } = request.body;
@@ -158,11 +158,11 @@ router.post('/login', async (request, response) => {
                 name: global.name,
                 session: request.session.user,
                 type: 'Login',
-                route: redirect || '/',
+                route: redirect || request.baseUrl,
                 message: {
                     type: 'success',
                     text: 'Login Successful! Redirecting . . .',
-                    redirect: redirect || '/'
+                    redirect: redirect || request.baseUrl
                 }
             });
         } else {
@@ -191,8 +191,8 @@ router.get('/logout', (request, response) => {
         request.session.destroy();
     };
 
-    response.redirect('/');
+    response.redirect(request.baseUrl);
 });
 
 
-module.exports = { handler: router };
+module.exports = router;

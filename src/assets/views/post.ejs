@@ -13,12 +13,12 @@
                         <p class="card-text"><%= post.content %></p>
                         <p class="card-text"><small>
                                 Author:
-                                <a href="/users/<%= post.user_id %>" class="text-decoration-none"><%= post.user_username %></a>
+                                <a href="<%= baseUrl %>/users/<%= post.user_id %>" class="text-decoration-none"><%= post.user_username %></a>
                             </small></p>
                         <div class="d-flex gap-2">
                             <% if (session && post.user_id === session.id) { %>
                                 <form class="d-inline"
-                                    action="/topics/<%= topic.name %>/posts/<%= post.id %>/delete" method="POST">
+                                    action="<%= baseUrl %>/topics/<%= topic.name %>/posts/<%= post.id %>/delete" method="POST">
                                     <button type="submit" class="btn btn-sm btn-outline-danger">
                                         <i class="fas fa-trash fa-xs"></i>
                                         <span class="small">Delete Post</span>
@@ -47,7 +47,7 @@
                                         <div class="d-flex gap-2">
                                             <% if (isCommentOwner(comment)) { %>
                                                 <form class="d-inline"
-                                                    action="/topics/<%= topic.name %>/posts/<%= post.id %>/comments/delete"
+                                                    action="<%= baseUrl %>/topics/<%= topic.name %>/posts/<%= post.id %>/comments/delete"
                                                     method="POST">
                                                     <input type="hidden" name="commentId" value="<%= comment.id %>">
                                                     <button type="submit" class="btn btn-sm btn-outline-danger">
@@ -57,7 +57,7 @@
                                                 </form>
                                             <% } %>
                                             <% if (!comment.parent_id) { %>
-                                                <a href="/topics/<%= topic.name %>/posts/<%= post.id %>/comments/<%= comment.id %>/reply"
+                                                <a href="<%= baseUrl %>/topics/<%= topic.name %>/posts/<%= post.id %>/comments/<%= comment.id %>/reply"
                                                     class="btn btn-sm btn-outline-primary">
                                                     <i class="fas fa-reply fa-xs"></i>
                                                     <span class="small">Reply</span>
@@ -82,7 +82,7 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title">Add a Comment</h5>
-                        <form action="/topics/<%= topic.name %>/posts/<%= post.id %>/comments" method="POST">
+                        <form action="<%= baseUrl %>/topics/<%= topic.name %>/posts/<%= post.id %>/comments" method="POST">
                             <div class="mb-3">
                                 <label for="comment" class="form-label">Comment</label>
                                 <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <a href="/topics/<%= topic.name %>" class="btn btn-secondary w-100">Back to <%= topic.name %> Page</a>
+                    <a href="<%= baseUrl %>/topics/<%= topic.name %>" class="btn btn-secondary w-100">Back to <%= topic.name %> Page</a>
                 </div>
             </div>
         </div>

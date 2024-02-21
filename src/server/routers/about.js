@@ -9,4 +9,4 @@ router.get('/about', async (request, response) => {
 });
 
 
-module.exports = { handler: router };
+module.exports = router;

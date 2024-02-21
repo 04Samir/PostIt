@@ -6,6 +6,8 @@ const routes = require('./routes');
 
 
 const app = express();
+const baseURl = '/postit';
+
 app.use(session({
     secret: 'PostIt',
     resave: true,
@@ -25,9 +27,15 @@ app.use('/js', express.static('node_modules/jquery-ui/dist'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
+app.use((req, res, next) => {
+    res.locals.baseUrl = baseURl;
+    next();
+});
+
 global.name = "PostIt";
 routes.forEach((route) => {
-    app.use(route.handler);
+    app.use(baseURl, route);
 });
 
 

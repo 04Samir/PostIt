@@ -22,7 +22,7 @@
                             <% } %>
 
                                 <form
-                                    action="/topics/<%= topic.name %>/posts/<%= post.id %>/comments/<%= comment.id %>/reply"
+                                    action="<%= baseUrl %>/topics/<%= topic.name %>/posts/<%= post.id %>/comments/<%= comment.id %>/reply"
                                     method="POST">
                                     <div class="mb-3">
                                         <label for="content" class="form-label">Your Reply</label>

@@ -19,4 +19,4 @@ router.get('/topics', async (request, response) => {
 
 
 
-module.exports = { handler: router };
+module.exports = router;

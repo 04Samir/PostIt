@@ -160,4 +160,4 @@ router.get('/topics/:topicArg/posts/:postId', checkArgs, async (request, respons
 });
 
 
-module.exports = { handler: router };
+module.exports = router;

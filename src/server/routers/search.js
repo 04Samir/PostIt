@@ -11,7 +11,7 @@ router.get('/search', async (request, response) => {
         if (!query) {
             response.format({
                 html: () => {
-                    response.redirect('/');
+                    response.redirect(request.baseUrl);
                 },
                 json: () => {
                     response.json({topics: [], posts: []});
@@ -56,4 +56,4 @@ router.get('/search', async (request, response) => {
 
 
 
-module.exports = { handler: router };
+module.exports = router;

@@ -10,14 +10,14 @@
                         <ul class="list-unstyled">
                             <% topics.forEach(topic=> { %>
                                 <li>
-                                    <a href="/topics/<%= topic.name %>" class="text-decoration-none">
+                                    <a href="<%= baseUrl %>/topics/<%= topic.name %>" class="text-decoration-none">
                                         <%= topic.name %>
                                     </a>
                                 </li>
                                 <% }); %>
                         </ul>
                         <div>
-                            <a href="/topics" class="btn btn-primary">View All Topics</a>
+                            <a href="<%= baseUrl %>/topics" class="btn btn-primary">View All Topics</a>
                         </div>
                     </div>
 
@@ -27,13 +27,13 @@
                             <% posts.forEach(post=> { %>
                                 <div class="card mb-3">
                                     <div class="card-header">
-                                        <a href="/topics/<%= post.topic_name %>" class="text-decoration-none">
+                                        <a href="<%= baseUrl %>/topics/<%= post.topic_name %>" class="text-decoration-none">
                                             topics/<%= post.topic_name %>
                                         </a>
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title"><strong>
-                                            <a href="/topics/<%= post.topic_name %>/posts/<%= post.id %>">
+                                            <a href="<%= baseUrl %>/topics/<%= post.topic_name %>/posts/<%= post.id %>">
                                                 <%= post.title %>
                                             </a>
                                             </strong></h5>
@@ -51,7 +51,7 @@
                         </div>
                         <div class="mb-4">
                             <div class="text-end">
-                                <a href="/posts" class="btn btn-primary w-100">View All Posts</a>
+                                <a href="<%= baseUrl %>/posts" class="btn btn-primary w-100">View All Posts</a>
                             </div>
                         </div>
                     </div>
@@ -61,14 +61,14 @@
                         <ul class="list-unstyled">
                             <% users.forEach(user=> { %>
                                 <li>
-                                    <a href="/users/<%= user.username %>" class="text-decoration-none">
+                                    <a href="<%= baseUrl %>/users/<%= user.username %>" class="text-decoration-none">
                                         <%= user.username %>
                                     </a>
                                 </li>
                                 <% }); %>
                         </ul>
                         <div>
-                            <a href="/users" class="btn btn-primary">View All Users</a>
+                            <a href="<%= baseUrl %>/users" class="btn btn-primary">View All Users</a>
                         </div>
                     </div>
                 </div>

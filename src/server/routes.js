@@ -1,13 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 
-const routes = __dirname + '/routers';
+const routesDir = path.join(__dirname, 'routers');
 const routers = [];
 
-fs.readdirSync(routes)
+fs.readdirSync(routesDir)
     .forEach(file => {
-        routers.push(require(path.join(routes, file)));
+        const router = require(path.join(routesDir, file));
+        routers.push(router);
     });
-
 
 module.exports = routers;

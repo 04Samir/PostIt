@@ -19,4 +19,4 @@ router.get('/users', async (request, response) => {
 
 
 
-module.exports = { handler: router };
+module.exports = router;

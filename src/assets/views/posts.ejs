@@ -11,7 +11,7 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title"><strong>
-                                    <a href="/topics/<%= post.topic_name %>/posts/<%= post.id %>">
+                                    <a href="<%= baseUrl %>/topics/<%= post.topic_name %>/posts/<%= post.id %>">
                                         <%= post.title %>
                                     </a>
                                 </strong></h5>
@@ -20,7 +20,7 @@
                             </p>
                             <p class="card-text"><small>
                                     Author:
-                                    <a href="/users/<%= post.user_id %>" class="text-decoration-none">
+                                    <a href="<%= baseUrl %>/users/<%= post.user_id %>" class="text-decoration-none">
                                         <%= post.username %>
                                     </a>
                                 </small></p>

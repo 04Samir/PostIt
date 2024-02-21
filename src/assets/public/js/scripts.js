@@ -27,7 +27,7 @@ $(() => {
 
         $.ajax({
             type: "GET",
-            url: "/search?q=" + query,
+            url: `${baseUrl}/search?q=${query}`,
             headers: {
                 "Accept": "application/json"
             },
@@ -67,7 +67,7 @@ $(() => {
         event.preventDefault();
         const query = $("#searchInputBox").val();
         if (!query.trim()) return;
-        window.location.href = "/search?q=" + query;
+        window.location.href = `${baseUrl}/search?q=${query}`;
     });
 
     $(document).on("mousedown", function (e) {

@@ -11,7 +11,7 @@
             <h3>Joined Topics:</h3>
             <ul class="list-group mb-4">
                 <% joinedTopics.forEach(topic => { %>
-                    <a href="/topics/<%= topic.name %>" class="text-decoration-none">
+                    <a href="<%= baseUrl %>/topics/<%= topic.name %>" class="text-decoration-none">
                     <li class="list-group-item">
                             <%= topic.name %>
                     </li>
@@ -24,7 +24,7 @@
             <h3>Posts Made:</h3>
             <ul class="list-group mb-4">
                 <% userPosts.forEach(post => { %>
-                    <a href="/posts/<%= post.id %>" class="text-decoration-none">
+                    <a href="<%= baseUrl %>/posts/<%= post.id %>" class="text-decoration-none">
                     <li class="list-group-item">
                         <%= post.title %>
                     </li>
@@ -37,7 +37,7 @@
             <h3>Comments Made:</h3>
             <ul class="list-group mb-4">
                 <% userComments.forEach(comment => { %>
-                    <a href="/posts/<%= comment.postId %>" class="text-decoration-none">
+                    <a href="<%= baseUrl %>/posts/<%= comment.postId %>" class="text-decoration-none">
                     <li class="list-group-item">
                         <%= comment.content %>
                     </li>

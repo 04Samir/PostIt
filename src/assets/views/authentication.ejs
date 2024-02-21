@@ -24,7 +24,7 @@
                             <% } %>
 
                                 <% if (typeof route !=='undefined' && route !==null ) { %>
-                                    <form action="<%= route %>" method="POST">
+                                    <form action="<%= baseUrl %><%= route %>" method="POST">
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Username</label>
                                             <input type="text" class="form-control" id="username" name="username"
@@ -39,7 +39,7 @@
                                             <%= type %>
                                         </button>
                                         <% } else { %>
-                                            <form action="/" method="POST">
+                                            <form action="<%= baseUrl %>/" method="POST">
                                                 <div class="mb-3">
                                                     <label for="username" class="form-label">Username</label>
                                                     <input type="text" class="form-control" id="username"

@@ -12,7 +12,7 @@
                         <div class="list-group">
                             <% if (topics.length> 0) { %>
                                 <% topics.forEach(topic=> { %>
-                                    <a href="/topics/<%= topic.id %>" class="list-group-item list-group-item-action">
+                                    <a href="<%= baseUrl %>/topics/<%= topic.id %>" class="list-group-item list-group-item-action">
                                         <%= topic.name %>
                                     </a>
                                     <% }); %>
@@ -27,7 +27,7 @@
                         <div class="list-group">
                             <% if (posts.length> 0) { %>
                                 <% posts.forEach(post=> { %>
-                                    <a href="/topics/<%= post.topic_id %>/posts/<%= post.id %>"
+                                    <a href="<%= baseUrl %>/topics/<%= post.topic_id %>/posts/<%= post.id %>"
                                         class="list-group-item list-group-item-action">
                                         <%= post.title %>
                                     </a>
