@@ -66,8 +66,8 @@ router.post('/register', async (request, response) => {
             );
         }
 
-        const [data] = await db.execute('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword]);
-        const user = data[0];
+        await db.execute('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword]);
+        const user = await db.query('SELECT * FROM users WHERE username = ?', [username]);
 
         request.session.user = {
             id: user.id,
