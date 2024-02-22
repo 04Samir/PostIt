@@ -42,8 +42,8 @@ Start the Server:
 $ npm start
 ```
 
-Now you Can Visit [`localhost:8000`](http://localhost:8000) To View The Application!
+Now you Can Visit [`localhost:3000`](http://localhost:3000) To View The Application!
 
 
 ## Live
-Coming Soon!
+You Can View a Live Preview of the Application [Here](https://projects.samir.cx/PostIt)
