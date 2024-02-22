@@ -17,7 +17,9 @@ const initDatabase = async () => {
 };
 
 const startServer = async () => {
-    console.clear();
+    if (process.platform === 'win32') {
+        console.clear();
+    };
     await initDatabase();
 
     app.listen(PORT, () => {
